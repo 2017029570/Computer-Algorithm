@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
+#include <iostream>
+using namespace std;
 
 int* MergeSort(int* arr, int* arr2, int size, int m) {
 		int* answer = new int[m+size];
@@ -85,22 +88,29 @@ int main(int argc, char* argv[]) {
 		}
 
 //		for(int a=0;a<size+m;a++) printf("%d ",answer[a]);
-		int out[size/k];
+	/*	int out[size/k];
 		int b = k-1;
 		for(int a=0;a<size/k;a++) {
-//				printf("%d ",answer[b]);
-						out[a] = answer[b];
+				out[a] = answer[b];
 						b+=k;
 				}
-		FILE* fo = fopen("output.txt","wb");
-		fwrite(out,sizeof(int), size/k,fo);
+	*/
+	//	string out = "";
+	//	for(int a=0;a<size/k;a++) out+=to_string(answer[a]);
+	//	cout<<out<<endl;
+		FILE* fo = fopen("output.txt","w");
+	//	fwrite(out,sizeof(char), size/k,fo);
+	//	for(int i=0;i<size/k;i++) putw(out[i],fo);
+		for(int a=0;a<size/k;a++)
+			fprintf(fo, "%d ",answer[a]);
+		
 		fclose(fo);
 
-		int bff[100001];
+	/*	int bff[100001];
 		fo = fopen("output.txt","rb");
 		fread(bff,sizeof(int),size/k,fo);
 		for(int i=0;i<size/k;i++) printf("%d ",bff[i]);
 		printf("\n");
-		fclose(fo);
+		fclose(fo);*/
 
 }

@@ -1,0 +1,4 @@
+해시테이블은 3*n개의 노드를 가지고 있고 노드는 key, value, status변수를 가지고 있다. 
+나눗셈법을 사용하여 해시테이블에 key를 삽입한다. 
+해시 함수를 이용해 key의 위치를 찾고 그 위치에 key가 있는지 확인한 후 있으면 삭제, 없으면 Not Found출력
+해시 함수를 이용해 index를 return하고 Hash[index]에 해당 key가 있으면 value값 출력

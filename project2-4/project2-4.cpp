@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 		fscanf(fi,"%d",&n);
 
 		Hash HashTable;
-		HashTable.MaxTableSize = n;
+		HashTable.MaxTableSize = 3*n;
 		HashTable.Table = (Node*)malloc(sizeof(Node)*n);
 		HashTable.H = sizeof(unsigned int);
 		HashTable.col = 0;

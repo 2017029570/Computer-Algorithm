@@ -5,8 +5,8 @@ using namespace std;
 typedef struct Node* Tree;
 
 struct Node {
-		unsigned int key;
-		unsigned int value;
+		unsigned long long int key;
+		unsigned long long int value;
 		Node* Left;
 		Node* Right;
 		int height;
@@ -17,7 +17,7 @@ int Height(Tree tree) {
 		else return tree->height;
 }
 
-Tree find(Tree tree, unsigned int k,unsigned int v,unsigned int d, FILE* fo) {
+Tree find(Tree tree, unsigned long long int k,unsigned long long int v,unsigned int d, FILE* fo) {
 		if(tree == NULL) {
 				return NULL;
 		}
@@ -26,7 +26,7 @@ Tree find(Tree tree, unsigned int k,unsigned int v,unsigned int d, FILE* fo) {
 			if(tree->key > k) find(tree->Left, k,v, ++d,fo);
 			else if(tree->key < k) find(tree->Right, k,v,++d, fo);
 			else if(tree->key == k) {
-					fprintf(fo, "Found (%u, %u) on d=%d with h=%d ",k,tree->value,d,tree->height);
+					fprintf(fo, "Found (%llu, %llu) on d=%u with h=%d ",k,tree->value,d,tree->height);
 					if(v != -1) tree->value = v; 
 					return tree;
 			}
@@ -78,10 +78,10 @@ Tree DoubleLeft(Tree tree) {
 
 		return tree;
 }
-Tree insert(Tree tree, unsigned int k, unsigned int v, FILE* fo) {
+Tree insert(Tree tree, unsigned long long int k, unsigned long long int v, FILE* fo) {
 		
 		if(find(tree, k, v,0,fo)!=NULL) 
-				fprintf(fo,"update v=%d\n",v);  
+				fprintf(fo,"update v=%llu\n",v);  
 		else {
 			if(tree == NULL) {
 					tree = (Tree)malloc(sizeof(struct Node));
@@ -90,7 +90,7 @@ Tree insert(Tree tree, unsigned int k, unsigned int v, FILE* fo) {
 					tree->Left = NULL;
 					tree->Right = NULL;
 					tree->height = 0;
-					fprintf(fo,"Inserted (%d, %d)\n",k, v);
+					fprintf(fo,"Inserted (%llu, %llu)\n",k, v);
 			}
 			else {
 					if(tree->key < k) {
@@ -117,7 +117,7 @@ Tree insert(Tree tree, unsigned int k, unsigned int v, FILE* fo) {
 void print(Tree tree, FILE* fo) {
 
 		if(tree == NULL) fprintf(fo,"Tree is empty.\n");
-		fprintf(fo,"(%d, %d) ",tree->key, tree->value);
+		fprintf(fo,"(%llu, %llu) ",tree->key, tree->value);
 		if(tree->Left != NULL) print(tree->Left, fo);
 		if(tree->Right != NULL) print(tree->Right, fo);
 
@@ -128,15 +128,15 @@ int main(int argc, char* argv[]) {
 	FILE* fo = fopen("output.txt","wb");
 
 	char i;
-	unsigned int k;
+	unsigned long long int k;
 	Tree AVLTree = NULL;
 
 	while(!feof(fi)) {
 			fscanf(fi, "%c", &i);
 
 			if(i == 'I') {
-					unsigned int v;
-					fscanf(fi,"%u %u", &k, &v);
+					unsigned long long int v;
+					fscanf(fi,"%llu %llu", &k, &v);
 
 					AVLTree = insert(AVLTree, k, v, fo);
 			}
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
 			}
 
 			else if(i == 'F') {
-					fscanf(fi, "%u", &k);
+					fscanf(fi, "%llu", &k);
 
 					if(find(AVLTree, k, -1, 0, fo) == NULL) fprintf(fo,"Not Found\n");
 					else fprintf(fo,"\n");

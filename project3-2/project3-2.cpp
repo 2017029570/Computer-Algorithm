@@ -7,8 +7,8 @@ typedef struct Node* Tree;
 #define Black true
 
 struct Node {
-		unsigned int key;
-		unsigned int value;
+		unsigned long long int key;
+		unsigned long long int value;
 		Node* Left;
 		Node* Right;
 		int height;
@@ -20,13 +20,13 @@ int Height(Tree tree) {
 		else return tree->height;
 }
 
-Tree find(Tree tree, unsigned int k, unsigned int v, unsigned int d, FILE* fo) {
+Tree find(Tree tree, unsigned long long int k, unsigned long long int v, unsigned int d, FILE* fo) {
 		if(tree == NULL) return NULL;
 		else {
 				if(tree->key > k) find(tree->Left, k, v, ++d, fo);
 				else if(tree->key < k) find(tree->Right, k, v, ++d, fo);
 				else if(tree->key == k) {
-						fprintf(fo, "Found (%u, %u) on d=%d with c=", k, tree->value, d);
+						fprintf(fo, "Found (%llu, %llu) on d=%d with c=", k, tree->value, d);
 						if(tree->Color == Red) fprintf(fo,"Red ");
 						else fprintf(fo,"Black ");
 						if(v != -1) tree->value = v;
@@ -96,7 +96,7 @@ Tree DoubleLeft(Tree tree) {
 }
 
 
-Tree insert(Tree tree, unsigned int k, unsigned int v, FILE* fo) {
+Tree insert(Tree tree, unsigned long long int k, unsigned long long int v, FILE* fo) {
 		if(find(tree, k, v, 0, fo) != NULL)
 				fprintf(fo, "update v=%d\n",v);
 		else {
@@ -145,7 +145,7 @@ Tree insert(Tree tree, unsigned int k, unsigned int v, FILE* fo) {
 		return tree;
 }
 
-Tree root(unsigned int k, unsigned int v, FILE* fo) {
+Tree root(unsigned long long int k, unsigned long long int v, FILE* fo) {
 		Tree tree = (Tree)malloc(sizeof(struct Node));
 		tree->key = k;
 		tree->value = v;
@@ -154,13 +154,13 @@ Tree root(unsigned int k, unsigned int v, FILE* fo) {
 		tree->Color = Black;
 		tree->height = 0;
 
-		fprintf(fo,"Inserted (%d, %d)\n",k, v);
+		fprintf(fo,"Inserted (%llu, %llu)\n",k, v);
 		return tree;
 }
 
 void print(Tree tree, FILE* fo) {
 		if(tree == NULL) fprintf(fo, "Tree is empty.\n");
-		fprintf(fo,"(%d, %d) ",tree->key, tree->value);
+		fprintf(fo,"(%llu, %llu) ",tree->key, tree->value);
 		if(tree->Left!=NULL) print(tree->Left, fo);
 		if(tree->Right!=NULL) print(tree->Right,fo);
 }
@@ -170,14 +170,14 @@ int main(int argc, char* argv[]) {
 		FILE* fo = fopen("output.txt","wb");
 
 		char i;
-		unsigned int k;
+		unsigned long long int k;
 		Tree RBTree = NULL;
 		while(!feof(fi)) {
 				fscanf(fi, "%c", &i);
 
 				if(i == 'I') {
-						unsigned int v;
-						fscanf(fi, "%u %u", &k, &v);
+						unsigned long long int v;
+						fscanf(fi, "%llu %llu", &k, &v);
 						
 						if(RBTree == NULL) 
 								RBTree = root(k,v,fo);
@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
 				}
 
 				else if(i == 'F') {
-						fscanf(fi, "%u", &k);
+						fscanf(fi, "%llu", &k);
 						if(find(RBTree, k, -1, 0, fo) == NULL) fprintf(fo, "Not Found\n");
 						else fprintf(fo, "\n");
 				}

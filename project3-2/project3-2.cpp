@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <algorithm>
+#include <stdlib.h>
 using namespace std;
 
 typedef struct Node* Tree;

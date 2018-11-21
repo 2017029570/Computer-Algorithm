@@ -98,7 +98,7 @@ Tree DoubleLeft(Tree tree) {
 
 Tree insert(Tree tree, unsigned long long int k, unsigned long long int v, FILE* fo) {
 		if(find(tree, k, v, 0, fo) != NULL)
-				fprintf(fo, "update v=%d\n",v);
+				fprintf(fo, "update v=%llu\n",v);
 		else {
 				if(tree == NULL) {
 						tree = (Tree)malloc(sizeof(struct Node));
@@ -108,7 +108,7 @@ Tree insert(Tree tree, unsigned long long int k, unsigned long long int v, FILE*
 						tree->Right = NULL;
 						tree->Color = Red;
 						tree->height = 0;
-						fprintf(fo, "Inserted (%d, %d)\n",k,v);
+						fprintf(fo, "Inserted (%llu, %llu)\n",k,v);
 				}
 				else {
 						if(tree->key < k) {
